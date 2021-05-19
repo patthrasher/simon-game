@@ -3,21 +3,38 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 
-const colors = ['blue', 'green', 'yellow', 'red'];
+const colors = ['green', 'red', 'yellow', 'blue'];
+
 function getRandom(max) {
   return Math.floor(Math.random() * max)
 }
 
-function getSequence() {
+function getNumSequence() {
   let nums = []
-  for (let i=0; i<=10; i++) {
-    nums.push(colors[getRandom(4)]);
+  for (let i=0; i<=3; i++) {
+    nums.push(getRandom(4));
   }
   return nums
 }
 
-const sequence = getSequence();
-console.log(sequence)
+
+function getColorSequence(seq) {
+  let colorSeq = []
+  for (let i=0; i<seq.length; i++) {
+    colorSeq.push(colors[numSequence[i]]);
+  }
+  return colorSeq;
+}
+
+const numSequence = getNumSequence();
+const colorSequence = getColorSequence(numSequence)
+console.log(numSequence)
+console.log(colorSequence)
+
+let turnSequence = [];
+let status = 'no status yet';
+
+
 
 class Square extends React.Component {
 
@@ -42,7 +59,6 @@ class Board extends React.Component {
     return (
       <Square
         i={i}
-        colorProp={this.props.propColor}
         onClickBoard={() => this.props.onClickGame(i)}
         squaresBoard={this.props.squaresGame[i]}
       />
@@ -69,8 +85,9 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      color: 'white',
-      squares: ['white', 'white', 'white', 'white'],
+      squares: ['lightgreen', 'pink', 'lightyellow', 'lightblue'],
+      whichTurn: 1,
+      counter: 1,
     };
   }
 
@@ -80,17 +97,48 @@ class Game extends React.Component {
     const squaresSlice = this.state.squares.slice();
     squaresSlice[iTurn] = colors[iTurn];
 
-    this.setState({
+    this.setState(state => ({
       squares: squaresSlice,
-    });
+      counter: state.counter + 1
+    }));
     setTimeout(function() {
-      this.setState({squares: ['white', 'white', 'white', 'white']});
+      this.setState({
+        squares: ['lightgreen', 'pink', 'lightyellow', 'lightblue']
+      });
     }.bind(this), 1000);
+
+    // if (colors[iTurn] !== sequence[0]) {
+    //   console.log('GAME OVER BUD');
+    // }
+    turnSequence.push(colors[iTurn]);
+    console.log('TURN SEQ: ' +  turnSequence);
+
+    this.isCorrect();
   }
 
-  compTurn() {
-    alert('compTurnactivated :)')
+  compTurn(howMany) {
+    console.log(this.state.whichTurn);
+
+    const squaresSlice = this.state.squares.slice();
+
+
   }
+
+  isCorrect() {
+    const sequenceSlice = colorSequence.slice(0, this.state.counter);
+    console.log("sequenceSlice herer:" + sequenceSlice);
+
+    for (let b=0; b<sequenceSlice.length; b++) {
+      console.log('thisisindex: ' + b)
+      if (turnSequence[b] !== sequenceSlice[b]) {
+        console.log('one didnt match buster');
+        status = 'GAME OVER';
+        return false;
+      }
+      status = 'Good so far';
+    }
+  }
+
 
   render() {
 
@@ -102,7 +150,9 @@ class Game extends React.Component {
         squaresGame={this.state.squares}
         />
         <button onClick={() => this.compTurn()}>Start Game</button>
-        {sequence.join(', ')}
+        {colorSequence.join(', ')}
+        <p>COUNTER: {this.state.counter}</p>
+        <p>Winner? : {status}</p>
       </div>
     )
   }

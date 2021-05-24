@@ -3,7 +3,7 @@
 }
 
 .square {
-  /* background: #fff; */
+  background: #fff;
   border: 1px solid #999;
   float: left;
   height: 100px;
@@ -11,8 +11,111 @@
   margin-left: -1px;
 }
 
-.board-row:after {
+.board-row::after {
   clear: both;
   content: "";
   display: table;
+}
+
+.lit-green {
+  background-color: green;
+}
+
+.lit-red {
+  background-color: red;
+}
+
+.lit-yellow {
+  background-color: yellow;
+}
+
+.lit-blue {
+  background-color: blue;
+}
+
+.lit-lightgreen {
+  background-color: lightgreen;
+}
+
+.lit-pink {
+  background-color: pink;
+}
+
+.lit-lightyellow {
+  background-color: lightyellow;
+}
+
+.lit-lightblue {
+  background-color: lightblue;
+}
+
+
+
+
+@keyframes glowing {
+  0% { background: white; }
+  25% { background: blue; }
+  50% {background: white}
+}
+
+
+.button-glow {
+  animation: glowing 2000ms;
+}
+
+
+
+
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  display: table;
+  background: lightgoldenrodyellow;
+}
+
+.memory-game {
+  width: 40%;
+  margin: 100px auto;
+}
+
+.game-piece {
+  width: 49%;
+  height: 200px;
+  display: inline-block;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background-color: lightgray;
+}
+
+.start-game {
+  margin: 0 auto;
+  background: red;
+  color: white;
+  border: none;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.green {
+  background-color: green;
 }

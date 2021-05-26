@@ -282,9 +282,6 @@ class App extends React.Component {
     }, 500);
   }
 
-  sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
 
     start(seq) {
         // const {quantity} = this.state;
@@ -306,10 +303,17 @@ class App extends React.Component {
        }))
      }
 
-    // turn(clickedPiece) {
-    //   const pieces = Array.from(document.querySelectorAll('.game-piece'));
-    //   console.log(pieces[clickedPiece]);
-    // }
+    turn(clickedPiece) {
+      const pieces = Array.from(document.querySelectorAll('.game-piece'));
+      const scheduleAnimation = (i) => {
+        const element = pieces[1];
+        const color = this.state.colors[i];
+        if ( element && color ) {
+          this.animate(element, color);
+        }
+      }
+      scheduleAnimation(0);
+    }
 
     render() {
 
@@ -317,7 +321,7 @@ class App extends React.Component {
         return (
             <div className="memory-game">
                 {this.state.colors.map((gamePiece, i) => {
-                    return <div key={`gamePiece-${i}`} className="game-piece"></div>
+                    return <div key={`gamePiece-${i}`} className="game-piece" onClick={(i) => this.turn(i)}></div>
                 })}
 
                 <button onClick={() => this.start(numSequence.slice(0,this.state.turn))} className="start-game">Start the game</button>

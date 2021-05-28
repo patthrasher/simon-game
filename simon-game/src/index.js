@@ -229,6 +229,8 @@ import './index.css';
 
 
 const colors = ['green', 'red', 'yellow', 'blue'];
+let currentClickArray = [];
+let status = '';
 
 function getRandom(max) {
   return Math.floor(Math.random() * max)
@@ -251,8 +253,8 @@ function getColorSequence(seq) {
   return colorSeq;
 }
 
-const numSequence = getNumSequence();
-const colorSequence = getColorSequence(numSequence);
+let numSequence = getNumSequence();
+let colorSequence = getColorSequence(numSequence);
 console.log(numSequence);
 console.log(colorSequence);
 
@@ -283,55 +285,90 @@ class App extends React.Component {
   }
 
 
-    start(seq) {
-        // const {quantity} = this.state;
-        // const quantityArray = Array.from(Array(quantity));
+  start(seq) {
+      // const {quantity} = this.state;
+      // const quantityArray = Array.from(Array(quantity));
 
-        console.log(this.state.turn);
-        const pieces = Array.from(document.querySelectorAll('.game-piece'));
-        const scheduleAnimation = (i) => {
-          const element = pieces[seq[i]];
-          const color = this.state.colors[i];
-          if ( element && color ) {
-            this.animate(element, color, scheduleAnimation.bind(this, ++i));
-          }
-        }
-       scheduleAnimation(0);
-
-       this.setState(state => ({
-         turn: state.turn + 1,
-       }))
-     }
-
-    turn(clickedPiece) {
+      console.log(this.state.turn);
       const pieces = Array.from(document.querySelectorAll('.game-piece'));
       const scheduleAnimation = (i) => {
-        const element = pieces[1];
+        const element = pieces[seq[i]];
         const color = this.state.colors[i];
         if ( element && color ) {
-          this.animate(element, color);
+          this.animate(element, color, scheduleAnimation.bind(this, ++i));
         }
       }
-      scheduleAnimation(0);
+     scheduleAnimation(0);
+   }
+
+  turn(i) {
+    console.log(i);
+    const piece = document.getElementById(i);
+    console.log(piece)
+    const scheduleAnimation = () => {
+      const color = colors[i];
+      if ( color ) {
+        this.animate(piece, color);
+      }
+    }
+    scheduleAnimation(i);
+
+    this.check(i);
+
+    this.setState(state => ({
+      turn: state.turn + 1,
+    }))
+  }
+
+
+  check(clickedPiece) {
+    console.log('turnturn = ' + this.state.turn)
+    const correctClickSeq = numSequence.slice(0, this.state.turn);
+    currentClickArray.push(clickedPiece);
+
+    console.log('herescurrent ' + currentClickArray);
+    console.log('herescorrect ' + correctClickSeq);
+
+    // if (correctClickSeq[correctClickSeq.length - 1] === currentClickArray[currentClickArray.length - 1]) {
+    //   console.log('YESSIR IT MATCHES');
+    // } else {
+    //   console.log('Game Over');
+
+    for (let i=0; i<correctClickSeq.length; i++) {
+      if (correctClickSeq[i] !== currentClickArray[i]) {
+        status = <button onClick={() => this.start(numSequence.slice(0, this.state.turn))}>GAME OVER START AGAIN?</button>;
+      }
     }
 
-    render() {
+      // numSequence = getNumSequence();
+      // colorSequence = getColorSequence(numSequence);
+      // console.log(numSequence);
+      // console.log(colorSequence);
+      //
+      // this.setState( state => ({
+      //   turn: 0,
+      //   colors: colorSequence,
+      // }));
+      //
+      //
+      // status = <button onClick={() => this.start(numSequence.slice(0, this.state.turn))}>GAME OVER START AGAIN?</button>;
+
+    // }
+  }
+
+  render() {
 
 
-        return (
-            <div className="memory-game">
-                {this.state.colors.map((gamePiece, i) => {
-                    return <div key={`gamePiece-${i}`} className="game-piece" onClick={(i) => this.turn(i)}></div>
-                })}
-
-                <button onClick={() => this.start(numSequence.slice(0,this.state.turn))} className="start-game">Start the game</button>
-                <button onClick={() => this.start(numSequence.slice(0,this.state.turn))} className="start-game">Turn 2</button>
-                <button onClick={() => this.start(numSequence.slice(0,this.state.turn))} className="start-game">Turn 3</button>
-                <button onClick={() => this.start(numSequence.slice(0,this.state.turn))} className="start-game">Turn 4</button>
-
-            </div>
-        )
-    }
+      return (
+      <div className="memory-game">
+        {[0,1,2,3].map((i) => {
+          return <div key={i} id={i} className="game-piece" onClick={() => this.turn(i)}></div>
+        })}
+        <p>{status}{this.state.turn}</p>
+        <button onClick={() => this.start(numSequence.slice(0,this.state.turn))} className="start-game">Start the game</button>
+      </div>
+    )
+  }
 }
 
 

@@ -231,6 +231,8 @@ import './index.css';
 const colors = ['green', 'red', 'yellow', 'blue'];
 let currentClickArray = [];
 let status = '';
+let index = 0;
+let animating = false;
 
 function getRandom(max) {
   return Math.floor(Math.random() * max)
@@ -264,8 +266,7 @@ class App extends React.Component {
 
         this.state = {
             colors: colorSequence,
-            turn: 1
-            // quantity: 3,
+            turn: 1,
         }
     }
 
@@ -286,9 +287,7 @@ class App extends React.Component {
 
 
   start(seq) {
-      // const {quantity} = this.state;
-      // const quantityArray = Array.from(Array(quantity));
-
+      console.log('ITISANIMATE');
       console.log(this.state.turn);
       const pieces = Array.from(document.querySelectorAll('.game-piece'));
       const scheduleAnimation = (i) => {
@@ -302,6 +301,10 @@ class App extends React.Component {
    }
 
   turn(i) {
+
+      // console.log('IMPORTNT' + index + this.state.turn);
+    console.log('index ' + index);
+    console.log('turn ' + this.state.turn)
     console.log(i);
     const piece = document.getElementById(i);
     console.log(piece)
@@ -312,21 +315,34 @@ class App extends React.Component {
       }
     }
     scheduleAnimation(i);
+    console.log('index is less than turn.. ' + index);
+    currentClickArray.push(i);
+  //
+  //   // this.check(currentClickArray);
+  //
+  //
+    console.log('IMPORTNTttt' + index + this.state.turn);
 
-    this.check(i);
+    index += 1;
 
-    this.setState(state => ({
-      turn: state.turn + 1,
-    }))
+    console.log(index + 'index, ' + this.state.turn + 'turn')
+    if (index === this.state.turn) {
+      this.setState(state => ({
+        turn: state.turn + 1,
+      }));
+      setTimeout(() => {
+        this.start(numSequence.slice(0, this.state.turn))
+      }, 1500);
+      index = 0;
+    }
   }
 
 
-  check(clickedPiece) {
+  check(clickedArray) {
     console.log('turnturn = ' + this.state.turn)
     const correctClickSeq = numSequence.slice(0, this.state.turn);
-    currentClickArray.push(clickedPiece);
 
-    console.log('herescurrent ' + currentClickArray);
+    console.log('herescurrent ' + clickedArray);
     console.log('herescorrect ' + correctClickSeq);
 
     // if (correctClickSeq[correctClickSeq.length - 1] === currentClickArray[currentClickArray.length - 1]) {
@@ -335,7 +351,7 @@ class App extends React.Component {
     //   console.log('Game Over');
 
     for (let i=0; i<correctClickSeq.length; i++) {
-      if (correctClickSeq[i] !== currentClickArray[i]) {
+      if (correctClickSeq[i] !== clickedArray[i]) {
         status = <button onClick={() => this.start(numSequence.slice(0, this.state.turn))}>GAME OVER START AGAIN?</button>;
       }
     }

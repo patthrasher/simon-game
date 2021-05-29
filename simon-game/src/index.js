@@ -240,7 +240,7 @@ function getRandom(max) {
 
 function getNumSequence() {
   let nums = []
-  for (let i=0; i<=3; i++) {
+  for (let i=0; i<=11; i++) {
     nums.push(getRandom(4));
   }
   return nums

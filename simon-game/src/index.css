@@ -83,7 +83,7 @@ body {
 
 .memory-game {
   width: 40%;
-  margin: 100px auto;
+  margin: 50px auto;
 }
 
 .game-piece {
@@ -120,6 +120,7 @@ body {
 }
 
 .header {
+  padding-bottom: 1%;
   text-align: center;
   color: #efefef;
 }

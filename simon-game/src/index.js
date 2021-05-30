@@ -227,7 +227,6 @@ import './index.css';
 //   }
 // }
 
-
 const colors = ['green', 'red', 'yellow', 'blue'];
 let status = '';
 let index = 0;
@@ -245,7 +244,7 @@ function getNumSequence() {
 }
 
 
-// Check correct? deal with double clicking? Sound? Change look of buttons/background?
+// deal with double clicking? Sound? Change look of buttons/background?
 // Change variable names etc?
 
 function getColorSequence(seq) {
@@ -337,7 +336,7 @@ class App extends React.Component {
       this.setState({
         turn: 0,
       });
-      status = <button onClick={() => this.reloadPage()}>GAME OVER - Try Again?</button>
+      status = <button className='restart' onClick={() => this.reloadPage()}>GAME OVER - Try Again?</button>
       return;
     } else {
       console.log('still goooooooooooood');
@@ -383,8 +382,9 @@ class App extends React.Component {
 
       return (
       <div className="memory-game">
+        <h1 className='header'>Simon Memory Game</h1>
         {[0,1,2,3].map((i) => {
-          return <div key={i} id={i} className="game-piece" onClick={() => this.turn(i)}></div>
+          return <div key={i} id={i} className='game-piece' onClick={() => this.turn(i)}></div>
         })}
         <p>{status}</p>
         <button onClick={() => this.start(numSequence.slice(0,this.state.turn))} className="start-game">Start Game (you got this!)</button>

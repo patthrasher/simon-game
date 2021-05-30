@@ -96,6 +96,8 @@ body {
 }
 
 .start-game {
+  height: 60px;
+  width: 200px;
   margin: 0 auto;
   background: dodgerblue;
   color: white;
@@ -106,6 +108,8 @@ body {
 }
 
 .restart {
+  height: 60px;
+  width: 200px;
   margin: 0 auto;
   background: red;
   color: white;

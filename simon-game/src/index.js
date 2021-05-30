@@ -229,10 +229,8 @@ import './index.css';
 
 
 const colors = ['green', 'red', 'yellow', 'blue'];
-let currentClickArray = [];
 let status = '';
 let index = 0;
-let animating = false;
 
 function getRandom(max) {
   return Math.floor(Math.random() * max)
@@ -240,12 +238,15 @@ function getRandom(max) {
 
 function getNumSequence() {
   let nums = []
-  for (let i=0; i<=11; i++) {
+  for (let i=0; i<=20; i++) {
     nums.push(getRandom(4));
   }
   return nums
 }
 
+
+// Check correct? deal with double clicking? Sound? Change look of buttons/background?
+// Change variable names etc?
 
 function getColorSequence(seq) {
   let colorSeq = []
@@ -300,14 +301,48 @@ class App extends React.Component {
      scheduleAnimation(0);
    }
 
+  //  startNew() {
+  //    numSequence = getNumSequence();
+  //    colorSequence = getColorSequence(numSequence);
+  //
+  //    console.log(numSequence);
+  //    console.log(colorSequence);
+  //
+  //    console.log('ITISANIMATE');
+  //    console.log(this.state.turn);
+  //    const pieces = Array.from(document.querySelectorAll('.game-piece'));
+  //    const scheduleAnimation = (i) => {
+  //      const element = pieces[seq[i]];
+  //      const color = this.state.colors[i];
+  //      if ( element && color ) {
+  //        this.animate(element, color, scheduleAnimation.bind(this, ++i));
+  //      }
+  //    }
+  //   scheduleAnimation(0);
+  // }
+  //  }
+
+  reloadPage() {
+    window.location.reload();
+  }
+
   turn(i) {
 
-      // console.log('IMPORTNT' + index + this.state.turn);
-    console.log('index ' + index);
-    console.log('turn ' + this.state.turn)
-    console.log(i);
     const piece = document.getElementById(i);
     console.log(piece)
+
+    if (!this.check(i, index)) {
+      console.log('DONE');
+      index = 0
+      this.setState({
+        turn: 0,
+      });
+      status = <button onClick={() => this.reloadPage()}>GAME OVER - Try Again?</button>
+      return;
+    } else {
+      console.log('still goooooooooooood');
+    }
+
     const scheduleAnimation = () => {
       const color = colors[i];
       if ( color ) {
@@ -315,17 +350,11 @@ class App extends React.Component {
       }
     }
     scheduleAnimation(i);
-    console.log('index is less than turn.. ' + index);
-    currentClickArray.push(i);
-  //
-  //   // this.check(currentClickArray);
-  //
-  //
-    console.log('IMPORTNTttt' + index + this.state.turn);
+
+
 
     index += 1;
 
-    console.log(index + 'index, ' + this.state.turn + 'turn')
     if (index === this.state.turn) {
       this.setState(state => ({
         turn: state.turn + 1,
@@ -338,38 +367,15 @@ class App extends React.Component {
   }
 
 
-  check(clickedArray) {
-    console.log('turnturn = ' + this.state.turn)
+  check(piece, index) {
     const correctClickSeq = numSequence.slice(0, this.state.turn);
 
-    console.log('herescurrent ' + clickedArray);
-    console.log('herescorrect ' + correctClickSeq);
+    console.log('correct + piec ' + correctClickSeq[index], piece)
 
-    // if (correctClickSeq[correctClickSeq.length - 1] === currentClickArray[currentClickArray.length - 1]) {
-    //   console.log('YESSIR IT MATCHES');
-    // } else {
-    //   console.log('Game Over');
-
-    for (let i=0; i<correctClickSeq.length; i++) {
-      if (correctClickSeq[i] !== clickedArray[i]) {
-        status = <button onClick={() => this.start(numSequence.slice(0, this.state.turn))}>GAME OVER START AGAIN?</button>;
-      }
+    if (correctClickSeq[index] !== piece) {
+        return false;
     }
-
-      // numSequence = getNumSequence();
-      // colorSequence = getColorSequence(numSequence);
-      // console.log(numSequence);
-      // console.log(colorSequence);
-      //
-      // this.setState( state => ({
-      //   turn: 0,
-      //   colors: colorSequence,
-      // }));
-      //
-      //
-      // status = <button onClick={() => this.start(numSequence.slice(0, this.state.turn))}>GAME OVER START AGAIN?</button>;
-
-    // }
+    return true;
   }
 
   render() {
@@ -380,8 +386,8 @@ class App extends React.Component {
         {[0,1,2,3].map((i) => {
           return <div key={i} id={i} className="game-piece" onClick={() => this.turn(i)}></div>
         })}
-        <p>{status}{this.state.turn}</p>
-        <button onClick={() => this.start(numSequence.slice(0,this.state.turn))} className="start-game">Start the game</button>
+        <p>{status}</p>
+        <button onClick={() => this.start(numSequence.slice(0,this.state.turn))} className="start-game">Start Game (you got this!)</button>
       </div>
     )
   }

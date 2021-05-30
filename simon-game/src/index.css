@@ -86,22 +86,22 @@ body {
 }
 
 .game-piece {
-  width: 49%;
-  height: 200px;
+  width: 48%;
+  height: 250px;
   display: inline-block;
-  border-radius: 10px;
-  margin-bottom: 10px;
+  border-radius: 25px;
+  margin: 0 3px 3px 0;
   background-color: lightgray;
 }
 
 .start-game {
   margin: 0 auto;
-  background: red;
+  background: dodgerblue;
   color: white;
   border: none;
   display: block;
   padding: 10px 15px;
-  border-radius: 5px;
+  border-radius: 52px;
 }
 
 .yellow {

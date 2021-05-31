@@ -121,13 +121,15 @@ class Game extends React.Component {
       return (
       <div className="game-container">
         <h1 className='header'>Simon Memory Game</h1>
-        <p className='header'>Follow the pattern of lights by clicking the sequence in order!</p>
         {[0,1,2,3].map((i) => {
           return <div key={i} id={i} className='game-piece' onClick={() => this.turn(i)}></div>
         })}
         <p>{status}</p>
         <h2 className='header'>Score: {score}</h2>
-        <div className='button-pad'><button onClick={() => this.start(numSequence.slice(0,this.state.turn))} className="start-button">Start Game (you got this!)</button></div>
+        <p className='header'>Follow the pattern of lights by clicking the sequence in order!</p>
+        <div className='button-pad'>
+          <button onClick={() => this.start(numSequence.slice(0,this.state.turn))} className="start-button">Start Game (you got this!)</button>
+        </div>
       </div>
     )
   }

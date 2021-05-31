@@ -5,7 +5,7 @@ body {
   background-color: #232323;
 }
 
-h1 {
+.header {
   padding-bottom: 1%;
   text-align: center;
   color: #efefef;
@@ -23,6 +23,17 @@ h1 {
   border-radius: 25px;
   margin: 0 5px 3px 0;
   background-color: lightgray;
+}
+
+@media (max-width: 768px) {
+  .game-piece {
+    width: 46%;
+    height: 150px;
+    display: inline-block;
+    border-radius: 25px;
+    margin: 0 3px .5px 0;
+    background-color: lightgray;
+  }
 }
 
 @media (max-width: 425px) {

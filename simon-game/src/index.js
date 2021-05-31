@@ -5,6 +5,7 @@ import './index.css';
 const colors = ['green', 'red', 'yellow', 'blue'];
 let status = '';
 let clickCount = 0;
+let score = 0;
 
 function getRandom(max) {
   return Math.floor(Math.random() * max)
@@ -41,8 +42,6 @@ class Game extends React.Component {
             turn: 1,
         }
     }
-
-
 
   animate(element, className, callbackFunction){
     setTimeout(() => {
@@ -100,6 +99,7 @@ class Game extends React.Component {
         this.start(numSequence.slice(0, this.state.turn))
       }, 1500);
       clickCount = 0;
+      score += 1;
     }
   }
 
@@ -120,11 +120,12 @@ class Game extends React.Component {
   render() {
       return (
       <div className="game-container">
-        <h1>Simon Memory Game</h1>
+        <h1 className='header'>Simon Memory Game</h1>
         {[0,1,2,3].map((i) => {
           return <div key={i} id={i} className='game-piece' onClick={() => this.turn(i)}></div>
         })}
         <p>{status}</p>
+        <h2 className='header'>Score: {score}</h2>
         <div className='button-pad'><button onClick={() => this.start(numSequence.slice(0,this.state.turn))} className="start-button">Start Game (you got this!)</button></div>
       </div>
     )

@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/simon-game/static/css/main.89948565.chunk.css",
-    "main.js": "/simon-game/static/js/main.40f00f3a.chunk.js",
-    "main.js.map": "/simon-game/static/js/main.40f00f3a.chunk.js.map",
+    "main.css": "/simon-game/static/css/main.ded0aa51.chunk.css",
+    "main.js": "/simon-game/static/js/main.ab7f42a7.chunk.js",
+    "main.js.map": "/simon-game/static/js/main.ab7f42a7.chunk.js.map",
     "runtime-main.js": "/simon-game/static/js/runtime-main.055788e3.js",
     "runtime-main.js.map": "/simon-game/static/js/runtime-main.055788e3.js.map",
     "static/js/2.e1db16a4.chunk.js": "/simon-game/static/js/2.e1db16a4.chunk.js",
     "static/js/2.e1db16a4.chunk.js.map": "/simon-game/static/js/2.e1db16a4.chunk.js.map",
     "index.html": "/simon-game/index.html",
-    "static/css/main.89948565.chunk.css.map": "/simon-game/static/css/main.89948565.chunk.css.map",
+    "static/css/main.ded0aa51.chunk.css.map": "/simon-game/static/css/main.ded0aa51.chunk.css.map",
     "static/js/2.e1db16a4.chunk.js.LICENSE.txt": "/simon-game/static/js/2.e1db16a4.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.055788e3.js",
     "static/js/2.e1db16a4.chunk.js",
-    "static/css/main.89948565.chunk.css",
-    "static/js/main.40f00f3a.chunk.js"
+    "static/css/main.ded0aa51.chunk.css",
+    "static/js/main.ab7f42a7.chunk.js"
   ]
 }

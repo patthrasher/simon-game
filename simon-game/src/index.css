@@ -1,72 +1,3 @@
-.lightblue {
-  color: lightblue;
-}
-
-.square {
-  background: #fff;
-  border: 1px solid #999;
-  float: left;
-  height: 100px;
-  width: 100px;
-  margin-left: -1px;
-}
-
-.board-row::after {
-  clear: both;
-  content: "";
-  display: table;
-}
-
-.lit-green {
-  background-color: green;
-}
-
-.lit-red {
-  background-color: red;
-}
-
-.lit-yellow {
-  background-color: yellow;
-}
-
-.lit-blue {
-  background-color: blue;
-}
-
-.lit-lightgreen {
-  background-color: lightgreen;
-}
-
-.lit-pink {
-  background-color: pink;
-}
-
-.lit-lightyellow {
-  background-color: lightyellow;
-}
-
-.lit-lightblue {
-  background-color: lightblue;
-}
-
-
-
-
-@keyframes glowing {
-  0% { background: white; }
-  25% { background: blue; }
-  50% {background: white}
-}
-
-
-.button-glow {
-  animation: glowing 2000ms;
-}
-
-
-
-
-
 html,
 body {
   width: 100%;
@@ -74,14 +5,13 @@ body {
   background-color: #232323;
 }
 
-#app {
-  width: 100%;
-  height: 100%;
-  display: table;
-  background: lightgoldenrodyellow;
+h1 {
+  padding-bottom: 1%;
+  text-align: center;
+  color: #efefef;
 }
 
-.memory-game {
+.game-container {
   width: 40%;
   margin: 50px auto;
 }
@@ -95,7 +25,18 @@ body {
   background-color: lightgray;
 }
 
-.start-game {
+@media (max-width: 425px) {
+  .game-piece {
+    width: 46%;
+    height: 75px;
+    display: inline-block;
+    border-radius: 25px;
+    margin: 0 3px .5px 0;
+    background-color: lightgray;
+  }
+}
+
+.start-button {
   height: 60px;
   width: 200px;
   margin: 0 auto;
@@ -107,7 +48,23 @@ body {
   border-radius: 52px;
 }
 
-.restart {
+@media (max-width: 425px) {
+  .start-button {
+    height: 40px;
+    width: 200px;
+    background: dodgerblue;
+    color: white;
+    border: none;
+    border-radius: 52px;
+    display: inline-block;
+    float: none !important;
+    left: 50%;
+    position: relative;
+    transform: translate(-50%);
+  }
+}
+
+.game-over-button {
   height: 60px;
   width: 200px;
   margin: 0 auto;
@@ -119,10 +76,20 @@ body {
   border-radius: 52px;
 }
 
-.header {
-  padding-bottom: 1%;
-  text-align: center;
-  color: #efefef;
+@media (max-width: 425px) {
+  .game-over-button {
+    height: 40px;
+    width: 200px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 52px;
+    display: inline-block;
+    float: none !important;
+    left: 50%;
+    position: relative;
+    transform: translate(-50%);
+  }
 }
 
 .yellow {

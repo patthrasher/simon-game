@@ -383,7 +383,6 @@ class App extends React.Component {
       return (
       <div className="memory-game">
         <h1 className='header'>Simon Memory Game</h1>
-        <h2 style="color: white">Hey Grandma!!!</h2>
         {[0,1,2,3].map((i) => {
           return <div key={i} id={i} className='game-piece' onClick={() => this.turn(i)}></div>
         })}

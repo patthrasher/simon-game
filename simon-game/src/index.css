@@ -43,8 +43,9 @@ body {
   height: 250px;
   display: inline-block;
   border-radius: 25px;
-  margin: 0 5px 3px 0;
+  margin: 0 5px 5px 0;
   background-color: lightgray;
+  border: none;
 }
 
 @media (max-width: 1024px) {
@@ -92,6 +93,10 @@ body {
   border-radius: 52px;
 }
 
+.start-button:hover {
+  opacity: .8;
+}
+
 @media (max-width: 425px) {
   .start-button {
     height: 40px;
@@ -118,6 +123,10 @@ body {
   display: block;
   padding: 10px 15px;
   border-radius: 52px;
+}
+
+.game-over-button:hover {
+  opacity: .8;
 }
 
 @media (max-width: 425px) {

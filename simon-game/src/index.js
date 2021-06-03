@@ -6,6 +6,8 @@ const colors = ['green', 'red', 'yellow', 'blue'];
 let status = '';
 let clickCount = 0;
 let score = 0;
+let piecesDisabled = true;
+
 
 function getRandom(max) {
   return Math.floor(Math.random() * max)
@@ -29,8 +31,8 @@ function getColorSequence(seq) {
 
 let numSequence = getNumSequence();
 let colorSequence = getColorSequence(numSequence);
-console.log(numSequence);
-console.log(colorSequence);
+// console.log(numSequence);
+// console.log(colorSequence);
 
 
 class Game extends React.Component {
@@ -40,6 +42,7 @@ class Game extends React.Component {
         this.state = {
             colors: colorSequence,
             turn: 1,
+            startDisabled: false,
         }
     }
 
@@ -57,6 +60,7 @@ class Game extends React.Component {
 
 
   start(seq) {
+
       const pieces = Array.from(document.querySelectorAll('.game-piece'));
       const scheduleAnimation = (i) => {
         const element = pieces[seq[i]];
@@ -66,6 +70,12 @@ class Game extends React.Component {
         }
       }
      scheduleAnimation(0);
+
+     this.setState({
+       startDisabled: true,
+     });
+
+     piecesDisabled = false;
    }
 
   turn(i) {
@@ -95,6 +105,7 @@ class Game extends React.Component {
       this.setState(state => ({
         turn: state.turn + 1,
       }));
+
       setTimeout(() => {
         this.start(numSequence.slice(0, this.state.turn))
       }, 1500);
@@ -122,13 +133,13 @@ class Game extends React.Component {
       <div className="game-container">
         <h1 className='header'>Simon Memory Game</h1>
         {[0,1,2,3].map((i) => {
-          return <div key={i} id={i} className='game-piece' onClick={() => this.turn(i)}></div>
+          return <button key={i} id={i} className='game-piece' onClick={() => this.turn(i)} disabled={piecesDisabled}></button>
         })}
         <p>{status}</p>
         <h2 className='header'>Score: {score}</h2>
         <p className='header'>Follow the pattern of lights by clicking the sequence in order!</p>
         <div className='button-pad'>
-          <button onClick={() => this.start(numSequence.slice(0,this.state.turn))} className="start-button">Start Game (you got this!)</button>
+          <button onClick={() => this.start(numSequence.slice(0,this.state.turn))} disabled={this.state.startDisabled} className="start-button">Start Game (you got this!)</button>
         </div>
       </div>
     )
